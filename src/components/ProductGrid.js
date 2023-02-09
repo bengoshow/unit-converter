@@ -11,7 +11,7 @@ const products = [
     container: 'bottle',
     description: 'A six-pack of bottles'
   }, {
-    id: 'fourpack',
+    id: 'tallboys',
     title: 'Tallboys',
     units: 4,
     volume: 16,
@@ -35,7 +35,7 @@ const products = [
     container: 'can',
     description: 'A "40"'
   }, {
-    id: 'gallonjug',
+    id: 'gallon',
     title: 'Gallon',
     units: 1,
     volume: 128,
@@ -54,6 +54,7 @@ function ProductGrid() {
           <Product key={item.id} product={item} />
         )
       })}
+      <Product key="new" product={{ id: 'new', title: "Add Your Own" }} />
     </div>
   )
 }

@@ -1,3 +1,23 @@
-.Product {
+.product {
   text-align: center;
+  border: solid 1px black;
+  text-decoration: none;
+  color: black;
+  padding: var(--s1);
+}
+.product p {
+  margin:1em;
+}
+.title {
+  font-size: 1.5rem;
+  margin:0;
+}
+.smallText {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.priceLabel {
+  margin-top: 1em;
+  font-weight: bold;
 }

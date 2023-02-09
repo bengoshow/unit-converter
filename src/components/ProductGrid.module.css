@@ -4,9 +4,12 @@
   gap: var(--gutter);
   justify-content: center;
 }
+.ProductGrid > * {
+  flex: 1 1 100%;
+}
 @media (min-width: 48rem) {
   .ProductGrid > * {
-    flex: 0 0 calc(33.33% - var(--gutter));
-    border: solid 1px;
+    box-sizing: border-box;
+    flex: 0 0 calc(33.33% - calc(var(--gutter)*2/3));
   }
 }

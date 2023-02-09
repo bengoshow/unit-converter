@@ -1,0 +1,12 @@
+.ProductGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gutter);
+  justify-content: center;
+}
+@media (min-width: 48rem) {
+  .ProductGrid > * {
+    flex: 0 0 calc(33.33% - var(--gutter));
+    border: solid 1px;
+  }
+}

@@ -1,0 +1,14 @@
+html {
+  --gutter: 1rem;
+  --desktop: 64rem; /* 1024px */
+  --tablet: 48rem; /* 768px */
+  --mobile: 20rem; /* 320px */
+  --s1: 10px;
+}
+.App   {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+}

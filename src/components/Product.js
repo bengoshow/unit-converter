@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from "./Product.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -6,6 +7,12 @@ library.add(fas)
 
 function Product({ product }) {
   const icon = product.icon ?? 'hippo';
+  const [pricePerUnit, setPricePerUnit] = React.useState();
+
+  function handlePriceChange(price) {
+    const totalVolume = product.units * product.volume;
+    setPricePerUnit(`$${price / totalVolume}/${product.unitsOfMeasurement}`)
+  }
   return (
     <div className={styles.product}>
       <FontAwesomeIcon icon={`fa-solid fa-${icon}`} size='2x' />
@@ -14,8 +21,11 @@ function Product({ product }) {
         <span className={styles.smallText}>{product.units} {product.volume}{product.unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span>
       </p>
       <label className={styles.priceLabel} htmlFor="prod-price">Total Price: $
-        <input id="prod-price" type="text"></input>
+        <input id="prod-price" type="text" onChange={(event) => {
+          handlePriceChange(event.target.value)
+        }} />
       </label>
+      <div className="price-per-unit">{pricePerUnit}</div>
     </div >
   )
 }

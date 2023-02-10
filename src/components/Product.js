@@ -11,7 +11,8 @@ function Product({ product }) {
 
   function handlePriceChange(price) {
     const totalVolume = product.units * product.volume;
-    setPricePerUnit(`$${price / totalVolume}/${product.unitsOfMeasurement}`)
+    const nextPricePerUnit = Math.round((price / totalVolume) * 1000) / 1000;
+    setPricePerUnit(`$${nextPricePerUnit}/${product.unitsOfMeasurement}`)
   }
   return (
     <div className={styles.product}>

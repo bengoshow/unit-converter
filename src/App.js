@@ -3,7 +3,7 @@ import ProductGrid from "./components/ProductGrid";
 function App() {
   return (
     <div className={styles.App}>
-      <h1 className={styles.header}>Cost Comparison Calculator</h1>
+      <h1 className={styles.header}>Price Per Unit Comparison Calculator</h1>
       <ProductGrid />
     </div>
   );

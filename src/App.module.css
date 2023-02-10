@@ -4,6 +4,7 @@ html {
   --tablet: 48rem; /* 768px */
   --mobile: 20rem; /* 320px */
   --s1: 10px;
+  padding: var(--gutter);
 }
 .App   {
   max-width: 1280px;

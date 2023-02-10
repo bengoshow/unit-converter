@@ -9,7 +9,8 @@ const products = [
     volume: 12,
     unitsOfMeasurement: 'oz',
     container: 'bottle',
-    description: 'A six-pack of bottles'
+    description: 'The ol\' standby',
+    icon: 'wine-bottle'
   }, {
     id: 'tallboys',
     title: 'Tallboys',
@@ -17,15 +18,17 @@ const products = [
     volume: 16,
     unitsOfMeasurement: 'oz',
     container: 'can',
-    description: 'A four-pack of cans'
+    description: 'Packaged for hipsters',
+    icon: 'glasses'
   }, {
     id: 'growler',
     title: 'Growler',
     units: 1,
     volume: 64,
     unitsOfMeasurement: 'oz',
-    container: 'growler',
-    description: 'A growler'
+    container: 'jug',
+    description: 'A jug of beer',
+    icon: 'jug-detergent'
   }, {
     id: 'forty',
     title: '40',
@@ -33,15 +36,16 @@ const products = [
     volume: 40,
     unitsOfMeasurement: 'oz',
     container: 'can',
-    description: 'A "40"'
+    description: 'A "40"',
   }, {
-    id: 'gallon',
-    title: 'Gallon',
+    id: 'keg',
+    title: 'Keg',
     units: 1,
-    volume: 128,
+    volume: 3968,
     unitsOfMeasurement: 'oz',
-    container: 'jug',
-    description: 'A gallon jug'
+    container: 'keg',
+    description: 'Toga! Toga!',
+    icon: 'pizza-slice'
   },
 ]
 
@@ -54,7 +58,7 @@ function ProductGrid() {
           <Product key={item.id} product={item} />
         )
       })}
-      <Product key="new" product={{ id: 'new', title: "Add Your Own" }} />
+      <Product key="new" product={{ id: 'new', title: "Add Your Own", icon: 'plus' }} />
     </div>
   )
 }

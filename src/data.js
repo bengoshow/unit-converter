@@ -1,40 +1,37 @@
 export const PRESETS = [
-  beer => [
-    label => "Beer",
-    items => [
+  {
+    id: 'beer',
+    label: "Beer",
+    baseUnit: 'oz',
+    icon: '🍻',
+    items: [
       {
         id: 'sixpack',
         title: 'Six-Pack',
         units: 6,
         volume: 12,
-        unitsOfMeasurement: 'oz',
         container: 'bottle',
         description: 'The ol\' standby',
-        icon: 'wine-bottle'
+        icon: 'bottle-water'
       }, {
         id: 'growler',
         title: 'Growler',
-        units: 1,
         volume: 64,
-        unitsOfMeasurement: 'oz',
         container: 'jug',
         description: 'Just a jug of beer',
         icon: 'jug-detergent'
       }, {
         id: 'forty',
         title: '40',
-        units: 1,
         volume: 40,
-        unitsOfMeasurement: 'oz',
         container: 'can',
         description: 'A "40"',
         icon: 'hippo'
       }, {
         id: 'keg',
         title: 'Keg',
-        units: 1,
-        volume: 3968,
-        unitsOfMeasurement: 'oz',
+        volume: 15.5,
+        unitsOfMeasurement: 'gal',
         container: 'keg',
         description: 'Toga! Toga!',
         icon: 'pizza-slice'
@@ -43,15 +40,18 @@ export const PRESETS = [
         title: 'Tallboys',
         units: 4,
         volume: 16,
-        unitsOfMeasurement: 'oz',
         container: 'can',
         description: 'Packaged for hipsters',
         icon: 'glasses'
       }
     ]
-  ], wine => [
-    label => "Wine",
-    items => [
+  },
+  {
+    id: 'wine',
+    label: "Wine",
+    baseUnit: 'mL',
+    icon: '🍷',
+    items: [
       {
         id: 'half',
         title: 'Half',
@@ -99,6 +99,55 @@ export const PRESETS = [
         icon: 'wine-bottle'
       }
     ]
-  ]
+  },
+  {
+    id: 'soup',
+    label: "LaDonna's Soup Club",
+    baseUnits: 'oz',
+    icon: '🥘',
+    items: [
+      {
+        id: '8oz',
+        title: '8oz',
+        volume: 8,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'soup-bowl',
+        price: 7
+      }, {
+        id: '16oz',
+        title: '16oz',
+        volume: 16,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'soup-bowl',
+        price: 14
+      }, {
+        id: '24oz',
+        title: '24oz',
+        volume: 24,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'soup-bowl',
+        price: 21
+      }, {
+        id: '32oz',
+        title: '32oz',
+        volume: 32,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'soup-bowl',
+        price: 28
+      }, {
+        id: '48oz',
+        title: '48oz',
+        units: 2,
+        volume: 24,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'soup-bowl',
+        price: 44
+      },
+    ]
+  }
 ];
-

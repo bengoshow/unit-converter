@@ -112,7 +112,7 @@ export const PRESETS = [
         volume: 8,
         unitsOfMeasurement: 'oz',
         container: 'jar',
-        icon: 'soup-bowl',
+        icon: 'bowl-food',
         price: 7
       }, {
         id: '16oz',
@@ -120,7 +120,7 @@ export const PRESETS = [
         volume: 16,
         unitsOfMeasurement: 'oz',
         container: 'jar',
-        icon: 'soup-bowl',
+        icon: 'bowl-food',
         price: 14
       }, {
         id: '24oz',
@@ -128,7 +128,7 @@ export const PRESETS = [
         volume: 24,
         unitsOfMeasurement: 'oz',
         container: 'jar',
-        icon: 'soup-bowl',
+        icon: 'bowl-food',
         price: 21
       }, {
         id: '32oz',
@@ -136,7 +136,7 @@ export const PRESETS = [
         volume: 32,
         unitsOfMeasurement: 'oz',
         container: 'jar',
-        icon: 'soup-bowl',
+        icon: 'bowl-food',
         price: 28
       }, {
         id: '48oz',
@@ -145,9 +145,18 @@ export const PRESETS = [
         volume: 24,
         unitsOfMeasurement: 'oz',
         container: 'jar',
-        icon: 'soup-bowl',
-        price: 44
-      },
+        icon: 'bowl-food',
+        price: 42
+      }, {
+        id: '76oz',
+        title: '76oz',
+        units: 1,
+        volume: 76,
+        unitsOfMeasurement: 'oz',
+        container: 'jar',
+        icon: 'bowl-food',
+        price: 50
+      }
     ]
   }
 ];

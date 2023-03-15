@@ -5,17 +5,21 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
-function Product({ product }) {
+function Product({ product, baseUnit }) {
   const icon = product.icon ?? 'box';
-  const [price, setPrice] = React.useState(product.price);
-  const [pricePerUnit, setPricePerUnit] = React.useState('');
+  const unitsOfMeasurement = product.unitsOfMeasurement ?? baseUnit;
+  const [price, setPrice] = React.useState(product.price ?? '');
+  const [pricePerUnit, setPricePerUnit] = React.useState(product.price ? calculatePricePerUnit(product.price) : '');
+
+  function calculatePricePerUnit(price) {
+    const totalVolume = product.units ? product.units * product.volume : product.volume;
+    const nextPricePerUnit = Math.round((price / totalVolume) * 1000) / 1000;
+    return `$${nextPricePerUnit}/${unitsOfMeasurement}`;
+  }
 
   function handlePriceChange(price) {
     setPrice(price);
-    const totalVolume = product.units ? product.units * product.volume : product.volume;
-    console.log(totalVolume);
-    const nextPricePerUnit = Math.round((price / totalVolume) * 1000) / 1000;
-    setPricePerUnit(`$${nextPricePerUnit}/${product.unitsOfMeasurement}`)
+    setPricePerUnit(calculatePricePerUnit(price));
   }
 
   return (
@@ -23,7 +27,7 @@ function Product({ product }) {
       <FontAwesomeIcon icon={`fa-solid fa-${icon}`} size='2x' />
       <h2 className={styles.title}>{product.title}</h2>
       <p>{product.description}
-        <span className={styles.smallText}>{product.units} {product.volume}{product.unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span>
+        <span className={styles.smallText}>{product.units ?? '1'} {product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span>
       </p>
       <label className={styles.priceLabel} htmlFor="prod-price">Total Price: $
         <input id="prod-price" type="text" value={price} onChange={(event) => {

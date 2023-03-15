@@ -55,7 +55,6 @@ export const PRESETS = [
       {
         id: 'half',
         title: 'Half',
-        units: 1,
         volume: 375,
         unitsOfMeasurement: 'mL',
         container: 'bottle',
@@ -64,7 +63,6 @@ export const PRESETS = [
       }, {
         id: 'standard',
         title: 'Standard',
-        units: 1,
         volume: 750,
         unitsOfMeasurement: 'mL',
         container: 'bottle',
@@ -73,7 +71,6 @@ export const PRESETS = [
       }, {
         id: 'magnum',
         title: 'Magnum',
-        units: 1,
         volume: 1500,
         unitsOfMeasurement: 'mL',
         container: 'bottle',
@@ -82,7 +79,6 @@ export const PRESETS = [
       }, {
         id: 'jeroboam',
         title: 'Jeroboam',
-        units: 1,
         volume: 3000,
         unitsOfMeasurement: 'mL',
         container: 'bottle',
@@ -91,7 +87,6 @@ export const PRESETS = [
       }, {
         id: 'imperial',
         title: 'Imperial',
-        units: 1,
         volume: 6000,
         unitsOfMeasurement: 'mL',
         container: 'bottle',
@@ -150,7 +145,6 @@ export const PRESETS = [
       }, {
         id: '76oz',
         title: '76oz',
-        units: 1,
         volume: 76,
         unitsOfMeasurement: 'oz',
         container: 'jar',

@@ -1,6 +1,16 @@
-export const PRESETS = [
-  {
-    id: 'beer',
+export const UNITS_OF_MEASUREMENT = {
+  'oz': {
+    'cup': 8,
+    'pint': 16,
+    'quart': 32,
+    'gallon': 128,
+  },
+  'mL': {
+    'L': 1000
+  }
+}
+export const PRESETS = {
+  'beer': {
     label: "Beer",
     baseUnit: 'oz',
     icon: '🍻',
@@ -31,7 +41,7 @@ export const PRESETS = [
         id: 'keg',
         title: 'Keg',
         volume: 15.5,
-        unitsOfMeasurement: 'gal',
+        unitsOfMeasurement: 'gallon',
         container: 'keg',
         description: 'Toga! Toga!',
         icon: 'pizza-slice'
@@ -46,8 +56,7 @@ export const PRESETS = [
       }
     ]
   },
-  {
-    id: 'wine',
+  'wine': {
     label: "Wine",
     baseUnit: 'mL',
     icon: '🍷',
@@ -71,41 +80,39 @@ export const PRESETS = [
       }, {
         id: 'magnum',
         title: 'Magnum',
-        volume: 1500,
-        unitsOfMeasurement: 'mL',
+        volume: 1.5,
+        unitsOfMeasurement: 'L',
         container: 'bottle',
         description: 'Yellow Tail, darling',
         icon: 'wine-bottle'
       }, {
         id: 'jeroboam',
         title: 'Jeroboam',
-        volume: 3000,
-        unitsOfMeasurement: 'mL',
+        volume: 3,
+        unitsOfMeasurement: 'L',
         container: 'bottle',
         description: 'I\'m not kidding, that\'s what it\'s called',
         icon: 'wine-bottle'
       }, {
         id: 'imperial',
         title: 'Imperial',
-        volume: 6000,
-        unitsOfMeasurement: 'mL',
+        volume: 6,
+        unitsOfMeasurement: 'L',
         container: 'bottle',
         description: 'Good night and good luck',
         icon: 'wine-bottle'
       }
     ]
   },
-  {
-    id: 'soup',
+  'soup': {
     label: "LaDonna's Soup Club",
-    baseUnits: 'oz',
+    baseUnit: 'oz',
     icon: '🥘',
     items: [
       {
         id: '8oz',
         title: '8oz',
         volume: 8,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 7
@@ -113,7 +120,6 @@ export const PRESETS = [
         id: '16oz',
         title: '16oz',
         volume: 16,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 14
@@ -121,7 +127,6 @@ export const PRESETS = [
         id: '24oz',
         title: '24oz',
         volume: 24,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 21
@@ -129,7 +134,6 @@ export const PRESETS = [
         id: '32oz',
         title: '32oz',
         volume: 32,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 28
@@ -138,7 +142,6 @@ export const PRESETS = [
         title: '48oz',
         units: 2,
         volume: 24,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 42
@@ -146,11 +149,10 @@ export const PRESETS = [
         id: '76oz',
         title: '76oz',
         volume: 76,
-        unitsOfMeasurement: 'oz',
         container: 'jar',
         icon: 'bowl-food',
         price: 50
       }
     ]
   }
-];
+}

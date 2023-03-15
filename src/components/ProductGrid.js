@@ -1,32 +1,35 @@
 import React from "react";
 import styles from "./ProductGrid.module.css";
 import Product from "./Product";
-import { PRESETS } from "../data";
+import { PRESETS, UNITS_OF_MEASUREMENT } from "../data";
 function ProductGrid() {
   const [productPreset, setProductPreset] = React.useState('');
   const [productGrid, setProductGrid] = React.useState('');
-  const presetOptions = PRESETS.map(
-    ({ id, label, icon }, key) => {
-      return (
-        <option key={id} value={key}>
-          {icon} {label}
-        </option>
-      );
-    }
-  );
+  const presetOptions = Object.keys(PRESETS).map((key) => {
+    return (
+      <option key={key} value={key}>
+        {PRESETS[key].icon} {PRESETS[key].label}
+      </option>
+    );
+  });
+
+  function calculateTotalVolume(product, baseUnit) {
+    const unitsOfMeasurement = product.unitsOfMeasurement ?? baseUnit;
+    const productUnits = product.units ?? 1;
+    const convertedUnitsOfMeasurement = UNITS_OF_MEASUREMENT[baseUnit][unitsOfMeasurement] ?? 1;
+    return convertedUnitsOfMeasurement * productUnits * product.volume;
+  }
   function handlePresetChange(event) {
     const nextProductPreset = event.target.value;
-    setProductPreset(nextProductPreset);
     const selectedItem = PRESETS[nextProductPreset];
     const baseUnit = selectedItem.baseUnit;
     const sortedByVolume = selectedItem.items.sort((a, b) => {
-      a = a.units ? a.volume * a.units : a.volume;
-      b = b.units ? b.volume * b.units : b.volume;
-      return a - b;
+      return calculateTotalVolume(a, baseUnit) - calculateTotalVolume(b, baseUnit);
     });
+    setProductPreset(nextProductPreset);
     setProductGrid(() => (sortedByVolume.map((item) => {
       return (
-        <Product key={item.id} product={item} baseUnit={baseUnit} />
+        <Product key={item.id} product={item} baseUnit={baseUnit} totalVolume={calculateTotalVolume(item, baseUnit)} />
       )
     })))
 

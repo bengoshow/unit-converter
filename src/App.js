@@ -1,5 +1,10 @@
 import styles from "./App.module.css";
 import ProductGrid from "./components/ProductGrid";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fas)
+
 function App() {
   return (
     <div className={styles.App}>

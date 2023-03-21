@@ -22,21 +22,24 @@ export const PRESETS = {
         volume: 12,
         container: 'bottle',
         description: 'The ol\' standby',
-        icon: 'bottle-water'
+        icon: 'bottle-water',
+        price: 9.99
       }, {
         id: 'growler',
         title: 'Growler',
         volume: 64,
         container: 'jug',
         description: 'Just a jug of beer',
-        icon: 'jug-detergent'
+        icon: 'jug-detergent',
+        price: 11.99
       }, {
         id: 'forty',
         title: '40',
         volume: 40,
         container: 'can',
         description: 'A "40"',
-        icon: 'hippo'
+        icon: 'hippo',
+        price: 4.99
       }, {
         id: 'keg',
         title: 'Keg',
@@ -52,7 +55,8 @@ export const PRESETS = {
         volume: 16,
         container: 'can',
         description: 'Packaged for hipsters',
-        icon: 'glasses'
+        icon: 'glasses',
+        price: 7.99
       }
     ]
   },

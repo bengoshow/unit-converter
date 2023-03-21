@@ -1,0 +1,9 @@
+.product_form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.product_form fieldset span {
+  display: flex;
+  flex-direction: column;
+}

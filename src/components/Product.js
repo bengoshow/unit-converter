@@ -1,9 +1,6 @@
 import React from 'react';
 import styles from "./Product.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
 
 function Product({ product, baseUnit, totalVolume }) {
   const icon = product.icon ?? 'box';

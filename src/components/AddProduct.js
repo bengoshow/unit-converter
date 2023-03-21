@@ -3,7 +3,7 @@ import styles from "./AddProduct.module.css";
 import Product from "./Product";
 import { UNITS_OF_MEASUREMENT } from "../data";
 
-function AddProductForm({ productGrid, setProductGrid, baseUnit, calculateTotalVolume }) {
+function AddProductForm({ productCollectionId, productGrid, setProductGrid, baseUnit, calculateTotalVolume, collections, setCollections }) {
   function handleSubmit(event) {
     event.preventDefault();
     const newProductTitle = event.target.productTitle.value;
@@ -18,11 +18,20 @@ function AddProductForm({ productGrid, setProductGrid, baseUnit, calculateTotalV
       icon: event.target.productIcon.value,
       price: event.target.productPrice.value,
     }
-
-    setProductGrid([
+    const nextProductGrid = [
       ...productGrid,
       <Product key={nextProduct.id} product={nextProduct} baseUnit={baseUnit} totalVolume={calculateTotalVolume(nextProduct, baseUnit)} />
-    ]);
+    ];
+    setProductGrid(nextProductGrid);
+    const nextCollection = collections;
+    const currentItems = nextCollection[productCollectionId]['items'];
+    nextCollection[productCollectionId]['items'] = [
+      ...currentItems,
+      nextProduct
+    ];
+    setCollections(nextCollection);
+    console.log(nextCollection)
+    localStorage.setItem('collections', JSON.stringify(nextCollection));
   }
 
   return (

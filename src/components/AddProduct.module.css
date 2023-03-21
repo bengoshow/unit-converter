@@ -1,6 +1,7 @@
 .product_form {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .product_form fieldset span {

@@ -121,6 +121,13 @@ export const PRESETS = {
         icon: 'bowl-food',
         price: 7
       }, {
+        id: '32oz',
+        title: '32oz',
+        volume: 32,
+        container: 'jar',
+        icon: 'bowl-food',
+        price: 28
+      }, {
         id: '16oz',
         title: '16oz',
         volume: 16,
@@ -134,13 +141,6 @@ export const PRESETS = {
         container: 'jar',
         icon: 'bowl-food',
         price: 21
-      }, {
-        id: '32oz',
-        title: '32oz',
-        volume: 32,
-        container: 'jar',
-        icon: 'bowl-food',
-        price: 28
       }, {
         id: '48oz',
         title: '48oz',

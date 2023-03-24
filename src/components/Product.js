@@ -17,6 +17,8 @@ function Product({ product, baseUnit, totalVolume }) {
   function handlePriceChange(price) {
     setPrice(price);
     setPricePerUnit(calculatePricePerUnit(price));
+    // update application state, but then only update local storage on "save" or "add component"
+    // updateItemPrice();
   }
 
   return (

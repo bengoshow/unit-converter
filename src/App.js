@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from "./App.module.css";
 import ProductGrid from './components/ProductGrid';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -12,7 +13,9 @@ function App() {
     localStorage.setItem('collections', JSON.stringify(PRESETS))
   }
   const collections = JSON.parse(localStorage.getItem('collections'));
+  const [currentCollection, setCurrentCollection] = React.useState('');
 
+  // calculate total volume per product with common base unit of measurement
   function calculateTotalVolume(product, baseUnit) {
     const unitsOfMeasurement = product.unitsOfMeasurement ?? baseUnit;
     const productUnits = product.units ?? 1;
@@ -28,11 +31,13 @@ function App() {
     return sortedItems;
   }
 
+  // sort collection items by total volume
   const sortedCollections = collections;
   Object.keys(sortedCollections).forEach((collection) => {
     sortedCollections[collection].items = sortedByVolume(sortedCollections[collection]);
   });
 
+  // available collections to select from
   const collectionOptions = Object.keys(collections).map((key) => {
     return (
       <option key={key} value={key}>
@@ -41,9 +46,10 @@ function App() {
     );
   });
 
-
+  // handle collection selector
   function handleCollectionChange(event) {
-    console.log(event.target.value)
+    const selectedCollection = sortedCollections[event.target.value];
+    setCurrentCollection(selectedCollection);
   }
 
   // function updateItemPrice() {
@@ -59,10 +65,7 @@ function App() {
           {collectionOptions}
         </select>
       </form>
-      <div className={styles.ProductGrid}>
-        {/* destructuring props object and spreading */}
-        <ProductGrid {...{ sortedCollections, calculateTotalVolume }} />
-      </div>
+      {currentCollection ? <ProductGrid {...{ currentCollection, calculateTotalVolume }} /> : ''}
       {/* {productGrid ? <AddProductForm productCollectionId={productCollectionId} productGrid={productGrid} setProductGrid={setProductGrid} baseUnit={baseUnit} calculateTotalVolume={calculateTotalVolume} collections={collections} setCollections={setCollections} /> : ''} */}
     </div>
   );

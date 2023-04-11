@@ -30,7 +30,6 @@ function AddProductForm({ productCollectionId, productGrid, setProductGrid, base
       nextProduct
     ];
     setCollections(nextCollection);
-    console.log(nextCollection)
     localStorage.setItem('collections', JSON.stringify(nextCollection));
   }
 

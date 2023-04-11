@@ -8,14 +8,13 @@ import { PRESETS, UNITS_OF_MEASUREMENT } from "./data";
 library.add(fas)
 
 function App() {
-  // get local storage collections if it exists, set it if it doesn't
-  if (!localStorage.getItem('collections')) {
-    localStorage.setItem('collections', JSON.stringify(PRESETS))
-  }
-  const collections = JSON.parse(localStorage.getItem('collections'));
-  const [currentCollection, setCurrentCollection] = React.useState('');
+  // get localStorage collections data if set, grab PRESETS otherwise
+  const [collections, setCollections] = React.useState(() => sortCollections(JSON.parse(localStorage.getItem('collections')) || PRESETS));
 
-  // calculate total volume per product with common base unit of measurement
+  // the active collection ID ('beer','wine','soup')
+  const [currentCollectionId, setCurrentCollectionId] = React.useState('');
+
+  // calculate total volume per item with common base unit of measurement from collection
   function calculateTotalVolume(product, baseUnit) {
     const unitsOfMeasurement = product.unitsOfMeasurement ?? baseUnit;
     const productUnits = product.units ?? 1;
@@ -23,49 +22,61 @@ function App() {
     return convertedUnitsOfMeasurement * productUnits * product.volume;
   }
 
-  // sort all collections and pass all to product grid
-  function sortedByVolume(collection) {
+  // sort collection items by total volume
+  function sortCollectionItems(collection) {
     const sortedItems = collection.items.sort((a, b) => {
       return calculateTotalVolume(a, collection.baseUnit) - calculateTotalVolume(b, collection.baseUnit);
     });
     return sortedItems;
   }
 
-  // sort collection items by total volume
-  const sortedCollections = collections;
-  Object.keys(sortedCollections).forEach((collection) => {
-    sortedCollections[collection].items = sortedByVolume(sortedCollections[collection]);
-  });
+  // map over and sort all collections
+  function sortCollections(collectionsObject) {
+    const sortedCollections = collectionsObject;
+    Object.keys(collectionsObject).forEach((collection) => {
+      sortedCollections[collection].items = sortCollectionItems(sortedCollections[collection]);
+    });
+    return sortedCollections;
+  }
 
-  // available collections to select from
+  // build dropdown options from available collections
   const collectionOptions = Object.keys(collections).map((key) => {
     return (
       <option key={key} value={key}>
-        {collections[key].icon} {collections[key].label}
+        {collections[key].icon} Calculate cost per {collections[key].baseUnit} of {key}
       </option>
     );
   });
 
   // handle collection selector
   function handleCollectionChange(event) {
-    const selectedCollection = sortedCollections[event.target.value];
-    setCurrentCollection(selectedCollection);
+    setCurrentCollectionId(event.target.value);
   }
 
-  // function updateItemPrice() {
-  //   // update item price
-  // }
+  // capture current collection prices and update collections in state
+  function updateItemPrice(collectionId, itemId, price) {
+    const nextItems = collections[collectionId].items.map((item) => {
+      if (!price) {
+        return item;
+      }
+      return item.id === itemId ? { ...item, price: parseFloat(price) } : item;
+    });
+    const nextCollection = { ...collections[collectionId], items: nextItems }
+    const nextCollections = { ...collections, [collectionId]: nextCollection }
+    setCollections(nextCollections);
+  }
+
 
   return (
     <div className={styles.App}>
-      <h1 className={styles.header}>Price Per Unit Comparison Calculator</h1>
+      <h1 className={styles.header}>Cost Comparison Calculator</h1>
       <form>
-        <select value="" onChange={handleCollectionChange}>
+        <select value={currentCollectionId} onChange={handleCollectionChange}>
           <option>--Choose a Collection--</option>
           {collectionOptions}
         </select>
       </form>
-      {currentCollection ? <ProductGrid {...{ currentCollection, calculateTotalVolume }} /> : ''}
+      {currentCollectionId ? <ProductGrid {...{ collections, currentCollectionId, calculateTotalVolume, updateItemPrice }} /> : ''}
       {/* {productGrid ? <AddProductForm productCollectionId={productCollectionId} productGrid={productGrid} setProductGrid={setProductGrid} baseUnit={baseUnit} calculateTotalVolume={calculateTotalVolume} collections={collections} setCollections={setCollections} /> : ''} */}
     </div>
   );

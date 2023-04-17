@@ -15,4 +15,3 @@ export default function useLocalStorageState(key, default_value = '') {
 
   return [state, setState]
 }
-

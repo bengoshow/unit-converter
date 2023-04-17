@@ -1,8 +1,11 @@
 import React from 'react'
 import Product from "./Product";
-import slugify from '../utils/slugify';
+import AddProductForm from './AddProduct'
+import Modal from './Modal';
+import useModal from '../hooks/useModal';
 import styles from "./ProductGrid.module.css";
 import calculateTotalVolume from '../utils/calculateTotalVolume';
+import slugify from '../utils/slugify';
 
 function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
 
@@ -11,20 +14,32 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
   // collection base unit of measurement to calculate and compare pricing
   const baseUnit = collections[currentCollectionId].baseUnit;
 
-  // build product grid
-  const allProducts = collections[currentCollectionId].items.map((product) => {
-    const totalVolume = calculateTotalVolume(product, baseUnit);
+  // visibility for Add Product form
+  const [isShowingModal, toggleModal] = useModal();
 
-    //generate unique product key
-    const productKey = slugify(product.id, product.title);
+  // store grid state
+  const [allProducts, setAllProducts] = React.useState();
 
-    // build product with generated ref
-    return (
-      <Product
-        key={productKey}
-        {...{ product, baseUnit, totalVolume, currentCollectionId, updateItemPrice }} />
-    )
-  });
+  React.useEffect(() => {
+    // build product grid
+    function buildProductsGrid() {
+      console.log(currentCollectionId)
+      return collections[currentCollectionId].items.map((product) => {
+        const totalVolume = calculateTotalVolume(product, baseUnit);
+
+        //generate unique product key
+        const productKey = slugify(product.id, product.title);
+
+        // build product with generated ref
+        return (
+          <Product
+            key={productKey}
+            {...{ product, baseUnit, totalVolume, currentCollectionId, updateItemPrice }} />
+        )
+      });
+    }
+    setAllProducts(() => buildProductsGrid());
+  }, [baseUnit, collections, updateItemPrice, currentCollectionId])
 
   // save collection to localStorage
   function saveCollections() {
@@ -39,7 +54,11 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
       </div>
       <div>
         <button onClick={saveCollections}>Save Collection</button>
+        <button onClick={toggleModal}>Add Product</button>
       </div>
+      <Modal isVisible={isShowingModal} onCloseButtonClick={toggleModal}>
+        <AddProductForm {...{ collections, currentCollectionId, calculateTotalVolume, baseUnit, allProducts, setAllProducts, toggleModal }} />
+      </Modal>
     </>
   );
 }

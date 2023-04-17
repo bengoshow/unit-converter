@@ -1,14 +1,19 @@
 import React from 'react';
 import styles from "./AddProduct.module.css";
 import Product from "./Product";
+import slugify from '../utils/slugify';
 import { UNITS_OF_MEASUREMENT } from "../data";
 
-function AddProductForm({ productCollectionId, productGrid, setProductGrid, baseUnit, calculateTotalVolume, collections, setCollections }) {
+function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllProducts, toggleModal }) {
+
   function handleSubmit(event) {
     event.preventDefault();
     const newProductTitle = event.target.productTitle.value;
+    const newProductUnits = event.target.productItemsPerProduct.value;
+    const newProductUnitsOfMeasurement = event.target.productUnitsOfMeasurement.value;
+    const newProductId = slugify(newProductUnits, newProductUnitsOfMeasurement, newProductTitle);
     const nextProduct = {
-      id: `${newProductTitle.toLowerCase().replace(/[^a-z0-9]/gi, '')}-${Math.random()}`,
+      id: newProductId,
       title: event.target.productTitle.value,
       units: event.target.productItemsPerProduct.value,
       volume: event.target.productVolumePerItem.value,
@@ -19,18 +24,11 @@ function AddProductForm({ productCollectionId, productGrid, setProductGrid, base
       price: event.target.productPrice.value,
     }
     const nextProductGrid = [
-      ...productGrid,
+      ...allProducts,
       <Product key={nextProduct.id} product={nextProduct} baseUnit={baseUnit} totalVolume={calculateTotalVolume(nextProduct, baseUnit)} />
     ];
-    setProductGrid(nextProductGrid);
-    const nextCollection = collections;
-    const currentItems = nextCollection[productCollectionId]['items'];
-    nextCollection[productCollectionId]['items'] = [
-      ...currentItems,
-      nextProduct
-    ];
-    setCollections(nextCollection);
-    localStorage.setItem('collections', JSON.stringify(nextCollection));
+    setAllProducts(nextProductGrid);
+    toggleModal();
   }
 
   return (

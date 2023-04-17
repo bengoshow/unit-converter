@@ -2,8 +2,9 @@ import React from 'react'
 import Product from "./Product";
 import slugify from '../utils/slugify';
 import styles from "./ProductGrid.module.css";
+import calculateTotalVolume from '../utils/calculateTotalVolume';
 
-function ProductGrid({ collections, currentCollectionId, calculateTotalVolume, updateItemPrice }) {
+function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
 
   console.log('Render Product Grid');
 
@@ -25,10 +26,21 @@ function ProductGrid({ collections, currentCollectionId, calculateTotalVolume, u
     )
   });
 
+  // save collection to localStorage
+  function saveCollections() {
+    updateItemPrice(currentCollectionId);
+    localStorage.setItem('collections', JSON.stringify(collections))
+  }
+
   return (
-    <div className={styles.ProductGrid}>
-      {allProducts}
-    </div>
+    <>
+      <div className={styles.ProductGrid}>
+        {allProducts}
+      </div>
+      <div>
+        <button onClick={saveCollections}>Save Collection</button>
+      </div>
+    </>
   );
 }
 

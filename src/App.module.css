@@ -6,10 +6,22 @@ html {
   --s1: 10px;
   padding: var(--gutter);
 }
-.App   {
+.App {
   max-width: 1280px;
   margin: 0 auto;
 }
-.header {
+.header,
+.subheader {
   text-align: center;
+}
+.header + .subheader {
+  margin-top: 0;
+}
+.subheader {
+  font-style: italic;
+}
+.collectionSelector {
+  display: block;
+  margin: 0 auto 1em;
+  font-size: 1.5rem;
 }

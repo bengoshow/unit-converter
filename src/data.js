@@ -114,25 +114,28 @@ export const PRESETS = {
     icon: '🥘',
     items: [
       {
-        id: '8oz',
-        title: '8oz',
-        volume: 8,
-        container: 'jar',
+        id: '1cup',
+        title: 'Cup o\' Soup',
+        volume: 1,
+        container: 'container',
         icon: 'bowl-food',
+        unitsOfMeasurement: 'cup',
         price: 7
       }, {
-        id: '32oz',
-        title: '32oz',
-        volume: 32,
+        id: '1quart',
+        title: 'Quart o\' Soup',
+        volume: 1,
         container: 'jar',
         icon: 'bowl-food',
+        unitsOfMeasurement: 'quart',
         price: 28
       }, {
-        id: '16oz',
-        title: '16oz',
-        volume: 16,
+        id: '1pint',
+        title: 'Pint o\' Soup',
+        volume: 1,
         container: 'jar',
         icon: 'bowl-food',
+        unitsOfMeasurement: 'pint',
         price: 14
       }, {
         id: '24oz',

@@ -1,5 +1,3 @@
-.product_form {
-}
 .product_form fieldset {
   display: grid;
   grid-template-columns: 1fr 1fr;

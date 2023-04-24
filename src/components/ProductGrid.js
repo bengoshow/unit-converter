@@ -2,7 +2,7 @@ import React from 'react'
 import Product from "./Product";
 import AddProductForm from './AddProduct'
 import Modal from './Modal';
-import useModal from '../hooks/useModal';
+import useToggle from '../hooks/useToggle';
 import styles from "./ProductGrid.module.css";
 import calculateTotalVolume from '../utils/calculateTotalVolume';
 import slugify from '../utils/slugify';
@@ -15,7 +15,8 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
   const baseUnit = collections[currentCollectionId].baseUnit;
 
   // visibility for Add Product form
-  const [isShowingModal, toggleModal] = useModal();
+  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
+
 
   // store grid state
   const [allProducts, setAllProducts] = React.useState();
@@ -54,11 +55,16 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
       </div>
       <div>
         <button onClick={saveCollections}>Save Collection</button>
-        <button onClick={toggleModal}>Add Product</button>
+        <button onClick={toggleIsModalOpen}>Add Product</button>
       </div>
-      <Modal isVisible={isShowingModal} onCloseButtonClick={toggleModal}>
-        <AddProductForm {...{ collections, currentCollectionId, calculateTotalVolume, baseUnit, allProducts, setAllProducts, toggleModal }} />
-      </Modal>
+      {isModalOpen && (
+        <Modal
+          title=""
+          handleDismiss={() => toggleIsModalOpen(false)}
+        >
+          <AddProductForm {...{ collections, currentCollectionId, calculateTotalVolume, baseUnit, allProducts, setAllProducts, toggleIsModalOpen, saveCollections }} />
+        </Modal>
+      )}
     </>
   );
 }

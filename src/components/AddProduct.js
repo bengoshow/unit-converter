@@ -4,7 +4,7 @@ import Product from "./Product";
 import slugify from '../utils/slugify';
 import { UNITS_OF_MEASUREMENT } from "../data";
 
-function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllProducts, toggleModal }) {
+function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllProducts, toggleIsModalOpen }) {
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +28,7 @@ function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllPro
       <Product key={nextProduct.id} product={nextProduct} baseUnit={baseUnit} totalVolume={calculateTotalVolume(nextProduct, baseUnit)} />
     ];
     setAllProducts(nextProductGrid);
-    toggleModal();
+    toggleIsModalOpen();
   }
 
   return (

@@ -4,7 +4,7 @@ import Product from "./Product";
 import slugify from '../utils/slugify';
 import { UNITS_OF_MEASUREMENT } from "../data";
 
-function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllProducts, toggleIsModalOpen }) {
+function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, updateCollection, toggleIsModalOpen, currentCollectionId }) {
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -12,6 +12,7 @@ function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllPro
     const newProductUnits = event.target.productItemsPerProduct.value;
     const newProductUnitsOfMeasurement = event.target.productUnitsOfMeasurement.value;
     const newProductId = slugify(newProductUnits, newProductUnitsOfMeasurement, newProductTitle);
+    const newProductPrice = event.target.productPrice.value;
     const nextProduct = {
       id: newProductId,
       title: event.target.productTitle.value,
@@ -21,13 +22,14 @@ function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, setAllPro
       container: event.target.productContainer.value,
       description: event.target.productDescription.value,
       icon: event.target.productIcon.value,
-      price: event.target.productPrice.value,
+      price: newProductPrice,
     }
     const nextProductGrid = [
       ...allProducts,
       <Product key={nextProduct.id} product={nextProduct} baseUnit={baseUnit} totalVolume={calculateTotalVolume(nextProduct, baseUnit)} />
     ];
-    setAllProducts(nextProductGrid);
+    updateCollection(currentCollectionId, nextProduct);
+    //setAllProducts(nextProductGrid);
     toggleIsModalOpen();
   }
 

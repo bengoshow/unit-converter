@@ -33,7 +33,7 @@ function App() {
   // capture current collection prices and update collections in state
   function updateItemPrice(collectionId, itemId, price) {
     const nextItems = collections[collectionId].items.map((item) => {
-      if (!price) {
+      if (!price || (item.id === itemId && item.price === price)) {
         return item;
       }
       return item.id === itemId ? { ...item, price: parseFloat(price) } : item;
@@ -43,6 +43,14 @@ function App() {
     setCollections(sortCollections(nextCollections));
   }
 
+  function updateCollection(collectionId, item) {
+    const nextItems = collections[collectionId].items;
+    nextItems.push(item);
+    console.log(nextItems)
+    const nextCollection = { ...collections[collectionId], items: nextItems }
+    const nextCollections = { ...collections, [collectionId]: nextCollection }
+    setCollections(sortCollections(nextCollections));
+  }
 
   return (
     <div className={styles.App}>
@@ -54,7 +62,7 @@ function App() {
           {collectionOptions}
         </select>
       </form>
-      {currentCollectionId && <ProductGrid {...{ collections, currentCollectionId, updateItemPrice }} />}
+      {currentCollectionId && <ProductGrid {...{ collections, currentCollectionId, updateItemPrice, updateCollection }} />}
     </div>
   );
 }

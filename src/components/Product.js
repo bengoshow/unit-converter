@@ -61,5 +61,4 @@ function Product({ product, baseUnit, totalVolume, currentCollectionId, updateIt
   )
 }
 
-// forward ref from ProductGrid
 export default Product;

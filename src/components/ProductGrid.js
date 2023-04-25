@@ -7,7 +7,7 @@ import styles from "./ProductGrid.module.css";
 import calculateTotalVolume from '../utils/calculateTotalVolume';
 import slugify from '../utils/slugify';
 
-function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
+function ProductGrid({ collections, currentCollectionId, updateItemPrice, updateCollection }) {
 
   console.log('Render Product Grid');
 
@@ -16,7 +16,6 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
 
   // visibility for Add Product form
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
-
 
   // store grid state
   const [allProducts, setAllProducts] = React.useState();
@@ -31,7 +30,7 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
         //generate unique product key
         const productKey = slugify(product.id, product.title);
 
-        // build product with generated ref
+        // build product with generated key
         return (
           <Product
             key={productKey}
@@ -59,10 +58,9 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice }) {
       </div>
       {isModalOpen && (
         <Modal
-          title=""
           handleDismiss={() => toggleIsModalOpen(false)}
         >
-          <AddProductForm {...{ collections, currentCollectionId, calculateTotalVolume, baseUnit, allProducts, setAllProducts, toggleIsModalOpen, saveCollections }} />
+          <AddProductForm {...{ calculateTotalVolume, allProducts, baseUnit, updateItemPrice, toggleIsModalOpen, currentCollectionId, updateCollection }} />
         </Modal>
       )}
     </>

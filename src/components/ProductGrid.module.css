@@ -10,6 +10,6 @@
 @media (min-width: 48rem) {
   .ProductGrid > * {
     box-sizing: border-box;
-    flex: 0 0 calc(33.33% - calc(var(--gutter)*2/3));
+    flex: 0 0 calc(33.33% - calc(var(--gutter) * 2 / 3));
   }
 }

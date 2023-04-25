@@ -38,7 +38,7 @@ function Modal({ title, handleDismiss, children }) {
               className={styles.closeBtn}
               onClick={handleDismiss}
             >
-              <FontAwesomeIcon icon={`fa-solid fa-x`} size='lg' fixedWidth={true} />
+              <FontAwesomeIcon icon={`fa-solid fa-x`} size='xl' fixedWidth={true} />
             </button>
 
             {title && <h2>{title}</h2>}

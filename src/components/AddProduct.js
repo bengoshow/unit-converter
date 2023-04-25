@@ -1,18 +1,23 @@
 import React from 'react';
 import styles from "./AddProduct.module.css";
-import Product from "./Product";
 import slugify from '../utils/slugify';
 import { UNITS_OF_MEASUREMENT } from "../data";
+import { CollectionsContext } from './CollectionsProvider';
 
-function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, updateCollection, toggleIsModalOpen, currentCollectionId }) {
+function AddProductForm({ toggleIsModalOpen }) {
+
+  const { collections, currentCollectionId, updateCollection } = React.useContext(CollectionsContext);
+
+  // collection base unit of measurement to calculate and compare pricing
+  const baseUnit = collections[currentCollectionId].baseUnit;
 
   function handleSubmit(event) {
     event.preventDefault();
     const newProductTitle = event.target.productTitle.value;
     const newProductUnits = event.target.productItemsPerProduct.value;
+    const newProductVolume = event.target.productVolumePerItem.value;
     const newProductUnitsOfMeasurement = event.target.productUnitsOfMeasurement.value;
-    const newProductId = slugify(newProductUnits, newProductUnitsOfMeasurement, newProductTitle);
-    const newProductPrice = event.target.productPrice.value;
+    const newProductId = slugify(newProductUnits, newProductVolume, newProductUnitsOfMeasurement, newProductTitle);
     const nextProduct = {
       id: newProductId,
       title: event.target.productTitle.value,
@@ -22,14 +27,9 @@ function AddProductForm({ calculateTotalVolume, allProducts, baseUnit, updateCol
       container: event.target.productContainer.value,
       description: event.target.productDescription.value,
       icon: event.target.productIcon.value,
-      price: newProductPrice,
+      price: event.target.productPrice.value,
     }
-    const nextProductGrid = [
-      ...allProducts,
-      <Product key={nextProduct.id} product={nextProduct} baseUnit={baseUnit} totalVolume={calculateTotalVolume(nextProduct, baseUnit)} />
-    ];
     updateCollection(currentCollectionId, nextProduct);
-    //setAllProducts(nextProductGrid);
     toggleIsModalOpen();
   }
 

@@ -6,10 +6,13 @@ import useToggle from '../hooks/useToggle';
 import styles from "./ProductGrid.module.css";
 import calculateTotalVolume from '../utils/calculateTotalVolume';
 import slugify from '../utils/slugify';
+import { CollectionsContext } from './CollectionsProvider';
 
-function ProductGrid({ collections, currentCollectionId, updateItemPrice, updateCollection }) {
+function ProductGrid() {
 
   console.log('Render Product Grid');
+
+  const { collections, currentCollectionId, updateItemPrice, setCollections } = React.useContext(CollectionsContext);
 
   // collection base unit of measurement to calculate and compare pricing
   const baseUnit = collections[currentCollectionId].baseUnit;
@@ -44,7 +47,7 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice, update
   // save collection to localStorage
   function saveCollections() {
     updateItemPrice(currentCollectionId);
-    localStorage.setItem('collections', JSON.stringify(collections))
+    setCollections(collections);
   }
 
   return (
@@ -60,7 +63,7 @@ function ProductGrid({ collections, currentCollectionId, updateItemPrice, update
         <Modal
           handleDismiss={() => toggleIsModalOpen(false)}
         >
-          <AddProductForm {...{ calculateTotalVolume, allProducts, baseUnit, updateItemPrice, toggleIsModalOpen, currentCollectionId, updateCollection }} />
+          <AddProductForm {...{ toggleIsModalOpen }} />
         </Modal>
       )}
     </>

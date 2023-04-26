@@ -2,12 +2,14 @@ import React from 'react';
 import styles from "./Product.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CollectionsContext } from './CollectionsProvider';
+import { CurrentCollectionContext } from './CurrentCollectionProvider';
 
 function Product({ product, baseUnit, totalVolume }) {
 
   console.log(`Render ${product.id}`)
 
-  const { currentCollectionId, updateItemPrice } = React.useContext(CollectionsContext)
+  const { updateItemPrice } = React.useContext(CollectionsContext)
+  const { currentCollectionId } = React.useContext(CurrentCollectionContext);
 
   const icon = product.icon ?? 'box';
 

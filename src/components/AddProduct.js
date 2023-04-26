@@ -3,10 +3,12 @@ import styles from "./AddProduct.module.css";
 import slugify from '../utils/slugify';
 import { UNITS_OF_MEASUREMENT } from "../data";
 import { CollectionsContext } from './CollectionsProvider';
+import { CurrentCollectionContext } from './CurrentCollectionProvider';
 
 function AddProductForm({ toggleIsModalOpen }) {
 
-  const { collections, currentCollectionId, updateCollection } = React.useContext(CollectionsContext);
+  const { collections, updateCollection } = React.useContext(CollectionsContext);
+  const { currentCollectionId } = React.useContext(CurrentCollectionContext);
 
   // collection base unit of measurement to calculate and compare pricing
   const baseUnit = collections[currentCollectionId].baseUnit;

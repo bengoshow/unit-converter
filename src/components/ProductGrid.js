@@ -7,12 +7,14 @@ import styles from "./ProductGrid.module.css";
 import calculateTotalVolume from '../utils/calculateTotalVolume';
 import slugify from '../utils/slugify';
 import { CollectionsContext } from './CollectionsProvider';
+import { CurrentCollectionContext } from './CurrentCollectionProvider';
 
 function ProductGrid() {
 
   console.log('Render Product Grid');
 
-  const { collections, currentCollectionId, updateItemPrice, setCollections } = React.useContext(CollectionsContext);
+  const { collections, updateItemPrice, setCollections } = React.useContext(CollectionsContext);
+  const { currentCollectionId } = React.useContext(CurrentCollectionContext);
 
   // collection base unit of measurement to calculate and compare pricing
   const baseUnit = collections[currentCollectionId].baseUnit;

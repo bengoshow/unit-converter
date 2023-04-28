@@ -10,9 +10,19 @@ export const UNITS_OF_MEASUREMENT = {
     'L': 1000
   }
 }
+export const SAMPLE_PRODUCT = {
+  title: 'Hat',
+  description: 'A 10-Gallon Hat',
+  units: 1,
+  volume: 10,
+  container: 'hat',
+  unitsOfMeasurement: 'gallon',
+  icon: 'hat-cowboy-side',
+  price: 149.99
+}
 export const PRESETS = {
   'soup': {
-    label: "LaDonna's Soup Club",
+    label: "Soup Club",
     baseUnit: 'oz',
     icon: '🥘',
     items: [
@@ -53,7 +63,7 @@ export const PRESETS = {
     ]
   },
   'soda': {
-    label: "Soda",
+    label: "Soda Pop",
     baseUnit: 'oz',
     icon: '🥤',
     items: [
@@ -89,7 +99,15 @@ export const PRESETS = {
         volume: 7.5,
         units: 10,
         container: 'can'
-      }
+      },
+      {
+        id: 'big-gulp',
+        title: 'Big Gulp',
+        volume: 128,
+        units: 1,
+        container: 'gulp'
+      },
+
     ]
   },
   'beer': {

@@ -21,14 +21,14 @@ function CollectionsProvider({ children }) {
       });
       const nextCollection = { ...collections[collectionId], items: nextItems }
       const nextCollections = { ...collections, [collectionId]: nextCollection }
-      console.log(nextCollections);
       setCollections(sortCollections(nextCollections));
     }
 
     function updateCollection(collectionId, item) {
-      const nextItems = collections[collectionId].items;
+      const nextItems = collections[collectionId].items.filter((existingItem) => {
+        return item.id !== existingItem.id;
+      });
       nextItems.push(item);
-      console.log(nextItems)
       const nextCollection = { ...collections[collectionId], items: nextItems }
       const nextCollections = { ...collections, [collectionId]: nextCollection }
       setCollections(sortCollections(nextCollections));

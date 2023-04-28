@@ -34,11 +34,11 @@ function CollectionsForm({ children }) {
       label: event.target.collectionTitle.value,
       baseUnit: event.target.collectionUnitsOfMeasurement.value,
       icon: event.target.collectionIcon.value,
+      items: []
     }
-    console.log(collections)
-    console.log(nextCollection)
     const nextCollections = { ...collections, [newCollectionId]: nextCollection }
     setCollections(nextCollections)
+    setCurrentCollectionId(newCollectionId)
   }
 
   function resetCollections() {

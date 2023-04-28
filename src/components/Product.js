@@ -3,6 +3,9 @@ import styles from "./Product.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CollectionsContext } from './CollectionsProvider';
 import { CurrentCollectionContext } from './CurrentCollectionProvider';
+import useToggle from '../hooks/useToggle';
+import Modal from './Modal';
+import ProductDetail from './ProductDetail';
 
 function Product({ product, baseUnit, totalVolume }) {
 
@@ -10,6 +13,7 @@ function Product({ product, baseUnit, totalVolume }) {
 
   const { updateItemPrice } = React.useContext(CollectionsContext)
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
+  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
 
   const icon = product.icon ?? 'box';
 
@@ -63,6 +67,18 @@ function Product({ product, baseUnit, totalVolume }) {
           }} />
       </label>
       <div className="price-per-unit">{pricePerUnit}</div>
+      <div>
+        <button onClick={toggleIsModalOpen}>Edit Product</button>
+        {/* <button onClick={deleteProduct}>Delete Product</button> */}
+      </div>
+      {isModalOpen && (
+        <Modal
+          handleDismiss={() => toggleIsModalOpen(false)}
+        >
+          <ProductDetail {...{ toggleIsModalOpen, product, handlePriceChange }} />
+        </Modal>
+      )}
+
     </div >
   )
 }

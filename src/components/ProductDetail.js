@@ -3,6 +3,7 @@ import styles from "./Product.module.css";
 import { UNITS_OF_MEASUREMENT } from "../data";
 import { CollectionsContext } from './CollectionsProvider';
 import { CurrentCollectionContext } from './CurrentCollectionProvider';
+import EmojiPicker from 'emoji-picker-react';
 
 function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
   const { collections, updateCollection } = React.useContext(CollectionsContext);
@@ -35,7 +36,7 @@ function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
           <legend>Edit {product.title}</legend>
           <span>
             <label htmlFor="product-icon">Product Icon</label>
-            <input type="text" id="product-icon" name="productIcon" defaultValue={product.icon} />
+            <EmojiPicker />
           </span>
           <span>
             <label htmlFor="product-title">Product Title</label>

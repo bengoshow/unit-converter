@@ -21,6 +21,7 @@ function CollectionsProvider({ children }) {
       });
       const nextCollection = { ...collections[collectionId], items: nextItems }
       const nextCollections = { ...collections, [collectionId]: nextCollection }
+      console.log(nextCollections);
       setCollections(sortCollections(nextCollections));
     }
 

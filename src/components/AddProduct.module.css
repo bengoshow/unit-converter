@@ -1,18 +1,18 @@
-.product_form fieldset {
+form fieldset {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
-.product_form fieldset legend {
+form fieldset legend {
   font-weight: bold;
   font-size: 1.5rem;
 }
-.product_form fieldset span {
+form fieldset span {
   display: flex;
   flex-direction: column;
 }
-.product_form fieldset select,
-.product_form fieldset input {
+form fieldset select,
+form fieldset input {
   font-size: 1.5rem;
   padding: 5px;
 }

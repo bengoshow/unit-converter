@@ -46,7 +46,7 @@ function Product({ product, baseUnit, totalVolume }) {
       <FontAwesomeIcon icon={`fa-solid fa-${icon}`} size='2x' />
       <h2 className={styles.title}>{product.title}</h2>
       <p>{product.description}
-        <span className={styles.smallText}>{productUnits} {product.volume > 1 && product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span><br />
+        <span className={styles.smallText}>{productUnits} {product.volume !== 1 && product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span><br />
         Total Volume in {baseUnit}: {totalVolume}
       </p>
       <label htmlFor={id} className={styles.priceLabel}>Price: $
@@ -58,6 +58,7 @@ function Product({ product, baseUnit, totalVolume }) {
             handlePriceChange(event.target.value)
           }}
           onBlur={(event) => {
+            console.log(currentCollectionId, product.id, event.target.value)
             updateItemPrice(currentCollectionId, product.id, event.target.value)
           }} />
       </label>

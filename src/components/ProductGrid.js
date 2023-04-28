@@ -58,8 +58,8 @@ function ProductGrid() {
         {allProducts}
       </div>
       <div>
-        <button onClick={saveCollections}>Save Collection</button>
         <button onClick={toggleIsModalOpen}>Add Product</button>
+        <button onClick={saveCollections}>Save Collection</button>
       </div>
       {isModalOpen && (
         <Modal

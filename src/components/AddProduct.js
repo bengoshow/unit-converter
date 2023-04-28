@@ -36,7 +36,7 @@ function AddProductForm({ toggleIsModalOpen }) {
   }
 
   return (
-    <form className={styles.product_form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <fieldset>
         <legend>Add a New Product to the Collection</legend>
         <span>

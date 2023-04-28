@@ -4,12 +4,94 @@ export const UNITS_OF_MEASUREMENT = {
     'pint': 16,
     'quart': 32,
     'gallon': 128,
+    'liter': 33.81
   },
   'mL': {
     'L': 1000
   }
 }
 export const PRESETS = {
+  'soup': {
+    label: "LaDonna's Soup Club",
+    baseUnit: 'oz',
+    icon: '🥘',
+    items: [
+      {
+        id: '1cup',
+        title: 'Cup o\' Soup',
+        volume: 1,
+        container: 'container',
+        icon: 'bowl-food',
+        unitsOfMeasurement: 'cup',
+        price: 7
+      }, {
+        id: '1quart',
+        title: 'Quart o\' Soup',
+        volume: 1,
+        container: 'jar',
+        icon: 'bowl-food',
+        unitsOfMeasurement: 'quart',
+        price: 28
+      }, {
+        id: '1pint',
+        title: 'Pint o\' Soup',
+        volume: 1,
+        container: 'jar',
+        icon: 'bowl-food',
+        unitsOfMeasurement: 'pint',
+        price: 14
+      }, {
+        id: '1gallon',
+        title: 'Jug o\' Soup',
+        units: 1,
+        volume: 1,
+        container: 'jug',
+        unitsOfMeasurement: 'gallon',
+        icon: 'bowl-food',
+        price: 42
+      }
+    ]
+  },
+  'soda': {
+    label: "Soda",
+    baseUnit: 'oz',
+    icon: '🥤',
+    items: [
+      {
+        id: 'can',
+        title: 'Can',
+        volume: 12,
+        container: 'can',
+        description: 'Can o\' Pop',
+      }, {
+        id: 'sixpack',
+        title: 'Six-Pack',
+        volume: 0.5,
+        units: 6,
+        unitsOfMeasurement: 'liter',
+        container: 'bottle',
+      }, {
+        id: 'case',
+        title: 'Case',
+        volume: 12,
+        units: 24,
+        container: 'case',
+      }, {
+        id: 'two-liter',
+        title: 'Two-Liter',
+        volume: 2,
+        unitsOfMeasurement: 'liter',
+        container: 'bottle',
+      },
+      {
+        id: 'mini-cans',
+        title: 'Mini Cans',
+        volume: 7.5,
+        units: 10,
+        container: 'can'
+      }
+    ]
+  },
   'beer': {
     label: "Beer",
     baseUnit: 'oz',
@@ -41,14 +123,6 @@ export const PRESETS = {
         icon: 'hippo',
         price: 4.99
       }, {
-        id: 'keg',
-        title: 'Keg',
-        volume: 15.5,
-        unitsOfMeasurement: 'gallon',
-        container: 'keg',
-        description: 'Toga! Toga!',
-        icon: 'pizza-slice'
-      }, {
         id: 'tallboys',
         title: 'Tallboys',
         units: 4,
@@ -60,106 +134,4 @@ export const PRESETS = {
       }
     ]
   },
-  'wine': {
-    label: "Wine",
-    baseUnit: 'mL',
-    icon: '🍷',
-    items: [
-      {
-        id: 'half',
-        title: 'Half',
-        volume: 375,
-        unitsOfMeasurement: 'mL',
-        container: 'bottle',
-        description: 'Just a sip, Jeeves',
-        icon: 'wine-bottle'
-      }, {
-        id: 'standard',
-        title: 'Standard',
-        volume: 750,
-        unitsOfMeasurement: 'mL',
-        container: 'bottle',
-        description: 'A very fine vintage',
-        icon: 'wine-bottle'
-      }, {
-        id: 'magnum',
-        title: 'Magnum',
-        volume: 1.5,
-        unitsOfMeasurement: 'L',
-        container: 'bottle',
-        description: 'Yellow Tail, darling',
-        icon: 'wine-bottle'
-      }, {
-        id: 'jeroboam',
-        title: 'Jeroboam',
-        volume: 3,
-        unitsOfMeasurement: 'L',
-        container: 'bottle',
-        description: 'I\'m not kidding, that\'s what it\'s called',
-        icon: 'wine-bottle'
-      }, {
-        id: 'imperial',
-        title: 'Imperial',
-        volume: 6,
-        unitsOfMeasurement: 'L',
-        container: 'bottle',
-        description: 'Good night and good luck',
-        icon: 'wine-bottle'
-      }
-    ]
-  },
-  'soup': {
-    label: "LaDonna's Soup Club",
-    baseUnit: 'oz',
-    icon: '🥘',
-    items: [
-      {
-        id: '1cup',
-        title: 'Cup o\' Soup',
-        volume: 1,
-        container: 'container',
-        icon: 'bowl-food',
-        unitsOfMeasurement: 'cup',
-        price: 7
-      }, {
-        id: '1quart',
-        title: 'Quart o\' Soup',
-        volume: 1,
-        container: 'jar',
-        icon: 'bowl-food',
-        unitsOfMeasurement: 'quart',
-        price: 28
-      }, {
-        id: '1pint',
-        title: 'Pint o\' Soup',
-        volume: 1,
-        container: 'jar',
-        icon: 'bowl-food',
-        unitsOfMeasurement: 'pint',
-        price: 14
-      }, {
-        id: '24oz',
-        title: '24oz',
-        volume: 24,
-        container: 'jar',
-        icon: 'bowl-food',
-        price: 21
-      }, {
-        id: '48oz',
-        title: '48oz',
-        units: 2,
-        volume: 24,
-        container: 'jar',
-        icon: 'bowl-food',
-        price: 42
-      }, {
-        id: '76oz',
-        title: '76oz',
-        volume: 76,
-        container: 'jar',
-        icon: 'bowl-food',
-        price: 50
-      }
-    ]
-  }
 }

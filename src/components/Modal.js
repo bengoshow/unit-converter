@@ -3,7 +3,6 @@ import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
 import styles from './Modal.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Modal({ title, handleDismiss, children }) {
   React.useEffect(() => {
@@ -37,9 +36,7 @@ function Modal({ title, handleDismiss, children }) {
             <button
               className={styles.closeBtn}
               onClick={handleDismiss}
-            >
-              <FontAwesomeIcon icon={`fa-solid fa-x`} size='xl' fixedWidth={true} />
-            </button>
+            >x</button>
 
             {title && <h2>{title}</h2>}
 

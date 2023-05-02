@@ -8,6 +8,7 @@ import EmojiPicker from 'emoji-picker-react';
 function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
   const { collections, updateCollection } = React.useContext(CollectionsContext);
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
+  const [emoji, setEmoji] = React.useState('');
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -19,12 +20,17 @@ function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
       unitsOfMeasurement: event.target.productUnitsOfMeasurement.value,
       container: event.target.productContainer.value,
       description: event.target.productDescription.value,
-      icon: event.target.productIcon.value,
+      icon: emoji,
       price: event.target.productPrice.value,
     }
     updateCollection(currentCollectionId, nextProduct);
     handlePriceChange(event.target.productPrice.value)
     toggleIsModalOpen();
+  }
+
+  function handleEmojiPicker(emojiObject) {
+    console.log(emojiObject)
+    setEmoji(emojiObject)
   }
 
   // collection base unit of measurement to calculate and compare pricing
@@ -36,7 +42,7 @@ function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
           <legend>Edit {product.title}</legend>
           <span>
             <label htmlFor="product-icon">Product Icon</label>
-            <EmojiPicker />
+            <EmojiPicker onEmojiClick={handleEmojiPicker} />
           </span>
           <span>
             <label htmlFor="product-title">Product Title</label>

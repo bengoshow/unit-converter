@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from "./Product.module.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CollectionsContext } from './CollectionsProvider';
 import { CurrentCollectionContext } from './CurrentCollectionProvider';
 import useToggle from '../hooks/useToggle';
 import Modal from './Modal';
 import ProductDetail from './ProductDetail';
+import { Emoji, EmojiStyle } from 'emoji-picker-react';
 
 function Product({ product, baseUnit, totalVolume }) {
 
@@ -15,7 +15,7 @@ function Product({ product, baseUnit, totalVolume }) {
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
 
-  const icon = product.icon ?? 'box';
+  const icon = product.icon ?? '';
 
   // use collection base unit of measurement if not specified per item
   const unitsOfMeasurement = product.unitsOfMeasurement ?? baseUnit;
@@ -25,9 +25,7 @@ function Product({ product, baseUnit, totalVolume }) {
 
   // track item price in state
   const [price, setPrice] = React.useState(product.price ?? '');
-
-  // track price per unit in state
-  const [pricePerUnit, setPricePerUnit] = React.useState(product.price ? calculatePricePerUnit(product.price) : '');
+  const pricePerUnit = calculatePricePerUnit(price)
 
   // let React generate unique item id
   const id = React.useId();
@@ -35,19 +33,23 @@ function Product({ product, baseUnit, totalVolume }) {
   // calculate total price per common unit of measurement, format to 2 decimals for $, 1 decimal for ¢
   function calculatePricePerUnit(price) {
     const pricePerUnit = Math.round((price / totalVolume) * 1000) / 1000;
-    const currencyFormat = pricePerUnit >= 1 ? `$${pricePerUnit.toFixed(2)}` : `${(pricePerUnit * 100).toFixed(1)}¢`
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(pricePerUnit);
+
+    const currencyFormat = pricePerUnit >= 1 ? formattedPrice : `${(pricePerUnit * 100).toFixed(1)}¢`
     return `${currencyFormat}/${baseUnit}`;
   }
 
   // update price in state, update price per unit in state
   function handlePriceChange(price) {
     setPrice(price);
-    setPricePerUnit(calculatePricePerUnit(price));
   }
 
   return (
     <div className={styles.product}>
-      <FontAwesomeIcon icon={`fa-solid fa-${icon}`} size='2x' />
+      <Emoji unified={icon.unified} size="40" emojiStyle={EmojiStyle.NATIVE} />
       <h2 className={styles.title}>{product.title}</h2>
       <p>{product.description}
         <span className={styles.smallText}>{productUnits} {product.volume !== 1 && product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span><br />
@@ -62,7 +64,6 @@ function Product({ product, baseUnit, totalVolume }) {
             handlePriceChange(event.target.value)
           }}
           onBlur={(event) => {
-            console.log(currentCollectionId, product.id, event.target.value)
             updateItemPrice(currentCollectionId, product.id, event.target.value)
           }} />
       </label>

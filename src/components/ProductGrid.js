@@ -22,30 +22,6 @@ function ProductGrid() {
   // visibility for Add Product form
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
 
-  // store grid state
-  const [allProducts, setAllProducts] = React.useState();
-
-  React.useEffect(() => {
-    // build product grid
-    function buildProductsGrid() {
-      console.log(currentCollectionId)
-      return collections[currentCollectionId].items.map((product) => {
-        const totalVolume = calculateTotalVolume(product, baseUnit);
-
-        //generate unique product key
-        const productKey = slugify(product.id, product.title);
-
-        // build product with generated key
-        return (
-          <Product
-            key={productKey}
-            {...{ product, baseUnit, totalVolume, currentCollectionId, updateItemPrice }} />
-        )
-      });
-    }
-    setAllProducts(() => buildProductsGrid());
-  }, [baseUnit, collections, updateItemPrice, currentCollectionId])
-
   // save collection to localStorage
   function saveCollections() {
     updateItemPrice(currentCollectionId);
@@ -54,8 +30,20 @@ function ProductGrid() {
 
   return (
     <>
-      <div className={styles.ProductGrid}>
-        {allProducts}
+      <div key={currentCollectionId} className={styles.ProductGrid}>
+        {collections[currentCollectionId].items.map((product) => {
+          const totalVolume = calculateTotalVolume(product, baseUnit);
+
+          //generate unique product key
+          const productKey = slugify(product.id, product.title);
+
+          // build product with generated key
+          return (
+            <Product
+              key={productKey}
+              {...{ product, baseUnit, totalVolume, currentCollectionId, updateItemPrice }} />
+          )
+        })}
       </div>
       <div>
         <button onClick={toggleIsModalOpen}>Add Product</button>

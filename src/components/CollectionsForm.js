@@ -42,6 +42,7 @@ function CollectionsForm({ children }) {
   }
 
   function resetCollections() {
+    setCurrentCollectionId('')
     setCollections(sortCollections(PRESETS))
   }
 

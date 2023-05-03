@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import styles from "./Product.module.css";
 import { CollectionsContext } from './CollectionsProvider';
 import { CurrentCollectionContext } from './CurrentCollectionProvider';
@@ -9,7 +10,7 @@ import { Emoji, EmojiStyle } from 'emoji-picker-react';
 
 function Product({ product, baseUnit, totalVolume }) {
 
-  console.log(`Render ${product.id}`)
+  // console.log(`Render ${product.id}`)
 
   const { updateItemPrice } = React.useContext(CollectionsContext)
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
@@ -49,7 +50,7 @@ function Product({ product, baseUnit, totalVolume }) {
 
   return (
     <div className={styles.product}>
-      <Emoji unified={icon.unified} size="40" emojiStyle={EmojiStyle.NATIVE} />
+      <Emoji unified={icon} size="40" emojiStyle={EmojiStyle.NATIVE} />
       <h2 className={styles.title}>{product.title}</h2>
       <p>{product.description}
         <span className={styles.smallText}>{productUnits} {product.volume !== 1 && product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span><br />
@@ -72,13 +73,15 @@ function Product({ product, baseUnit, totalVolume }) {
         <button onClick={toggleIsModalOpen}>Edit Product</button>
         {/* <button onClick={deleteProduct}>Delete Product</button> */}
       </div>
-      {isModalOpen && (
-        <Modal
-          handleDismiss={() => toggleIsModalOpen(false)}
-        >
-          <ProductDetail {...{ toggleIsModalOpen, product, handlePriceChange }} />
-        </Modal>
-      )}
+      {isModalOpen &&
+        createPortal(
+          (
+            <Modal
+              handleDismiss={() => toggleIsModalOpen(false)}
+            >
+              <ProductDetail {...{ toggleIsModalOpen, product, handlePriceChange }} />
+            </Modal>), document.body
+        )}
 
     </div >
   )

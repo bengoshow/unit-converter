@@ -1,11 +1,14 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { UNITS_OF_MEASUREMENT, PRESETS } from "../data";
 import { CollectionsContext } from "./CollectionsProvider";
 import { CurrentCollectionContext } from "./CurrentCollectionProvider";
 import ProductGrid from './ProductGrid';
+import Modal from "./Modal";
 import styles from "../App.module.css";
 import slugify from "../utils/slugify";
 import sortCollections from "../utils/sortCollections";
+import useToggle from "../hooks/useToggle";
 
 function CollectionsForm({ children }) {
 
@@ -21,12 +24,14 @@ function CollectionsForm({ children }) {
     );
   });
 
+  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
+
   // handle collection selector
   function handleCollectionChange(event) {
     setCurrentCollectionId(event.target.value);
   }
 
-  function handleSubmit(event) {
+  function addCollection(event) {
     event.preventDefault();
     const newCollectionTitle = event.target.collectionTitle.value;
     const newCollectionId = slugify(newCollectionTitle);
@@ -39,6 +44,7 @@ function CollectionsForm({ children }) {
     const nextCollections = { ...collections, [newCollectionId]: nextCollection }
     setCollections(nextCollections)
     setCurrentCollectionId(newCollectionId)
+    toggleIsModalOpen()
   }
 
   function resetCollections() {
@@ -60,32 +66,44 @@ function CollectionsForm({ children }) {
           {collectionOptions}
         </select>
       </form>
-      {currentCollectionId ? <ProductGrid /> :
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <fieldset>
-            <legend>Add a New Collection</legend>
-            <span>
-              <label htmlFor="collection-icon">Collection Icon</label>
-              <input type="text" id="collection-icon" name="collectionIcon" defaultValue="🎩" />
-            </span>
-            <span>
-              <label htmlFor="collection-title">Collection Title</label>
-              <input type="text" id="collection-title" name="collectionTitle" defaultValue="Hats" />
-            </span>
-            <span>
-              <label htmlFor="collection-unitsOfMeasurement">Base Unit of Measurement</label>
-              <select id="collection-unitsOfMeasurement" name="collectionUnitsOfMeasurement" defaultValue="gallon">
-                {Object.keys(UNITS_OF_MEASUREMENT).map(unit => <option key={unit} value={unit}>{unit}</option>)}
-              </select>
-            </span>
-            <button type='submit'>Create Collection</button>
-          </fieldset>
-        </form >
-      }
+      {currentCollectionId && <ProductGrid />}
+      {isModalOpen &&
+        createPortal(
+          <Modal
+            handleDismiss={() => toggleIsModalOpen(false)}
+          >
+            <AddCollectionForm handleSubmit={addCollection} />
+          </Modal>, document.body
+        )}
+      <button onClick={toggleIsModalOpen}>{isModalOpen ? 'Adding' : 'Add'} New Collection</button>
       <button onClick={resetCollections}>Reset All Collections</button>
       <button onClick={clearCollections}>Clear All Collections</button>
     </>
   )
 }
 
+function AddCollectionForm({ handleSubmit }) {
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <fieldset>
+        <legend>Add a New Collection</legend>
+        <span>
+          <label htmlFor="collection-icon">Collection Icon</label>
+          <input type="text" id="collection-icon" name="collectionIcon" defaultValue="🎩" />
+        </span>
+        <span>
+          <label htmlFor="collection-title">Collection Title</label>
+          <input type="text" id="collection-title" name="collectionTitle" defaultValue="Hats" />
+        </span>
+        <span>
+          <label htmlFor="collection-unitsOfMeasurement">Base Unit of Measurement</label>
+          <select id="collection-unitsOfMeasurement" name="collectionUnitsOfMeasurement" defaultValue="gallon">
+            {Object.keys(UNITS_OF_MEASUREMENT).map(unit => <option key={unit} value={unit}>{unit}</option>)}
+          </select>
+        </span>
+        <button type='submit'>Create Collection</button>
+      </fieldset>
+    </form >
+  )
+}
 export default CollectionsForm;

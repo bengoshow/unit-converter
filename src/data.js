@@ -17,7 +17,6 @@ export const SAMPLE_PRODUCT = {
   volume: 10,
   container: 'hat',
   unitsOfMeasurement: 'gallon',
-  icon: 'hat-cowboy-side',
   price: 149.99
 }
 export const PRESETS = {
@@ -31,7 +30,6 @@ export const PRESETS = {
         title: 'Cup o\' Soup',
         volume: 1,
         container: 'container',
-        icon: 'bowl-food',
         unitsOfMeasurement: 'cup',
         price: 7
       }, {
@@ -39,7 +37,6 @@ export const PRESETS = {
         title: 'Quart o\' Soup',
         volume: 1,
         container: 'jar',
-        icon: 'bowl-food',
         unitsOfMeasurement: 'quart',
         price: 28
       }, {
@@ -47,7 +44,6 @@ export const PRESETS = {
         title: 'Pint o\' Soup',
         volume: 1,
         container: 'jar',
-        icon: 'bowl-food',
         unitsOfMeasurement: 'pint',
         price: 14
       }, {
@@ -57,7 +53,6 @@ export const PRESETS = {
         volume: 1,
         container: 'jug',
         unitsOfMeasurement: 'gallon',
-        icon: 'bowl-food',
         price: 42
       }
     ]
@@ -122,7 +117,6 @@ export const PRESETS = {
         volume: 12,
         container: 'bottle',
         description: 'The ol\' standby',
-        icon: 'bottle-water',
         price: 9.99
       }, {
         id: 'growler',
@@ -130,7 +124,6 @@ export const PRESETS = {
         volume: 64,
         container: 'jug',
         description: 'Just a jug of beer',
-        icon: 'jug-detergent',
         price: 11.99
       }, {
         id: 'forty',
@@ -138,7 +131,6 @@ export const PRESETS = {
         volume: 40,
         container: 'can',
         description: 'A "40"',
-        icon: 'hippo',
         price: 4.99
       }, {
         id: 'tallboys',
@@ -147,7 +139,6 @@ export const PRESETS = {
         volume: 16,
         container: 'can',
         description: 'Packaged for hipsters',
-        icon: 'glasses',
         price: 7.99
       }
     ]

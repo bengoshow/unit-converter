@@ -11,8 +11,6 @@ import { CurrentCollectionContext } from './CurrentCollectionProvider';
 
 function ProductGrid() {
 
-  console.log('Render Product Grid');
-
   const { collections, updateItemPrice, setCollections } = React.useContext(CollectionsContext);
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
 

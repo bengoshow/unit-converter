@@ -6,8 +6,8 @@ Accepting proposals for a less terrible name. So far I've got:
 
 - Price Per Unit Comparison Calculator
 - PPUCC
-- What's That Cost?
+- PPU4U&ME
+- Price Pal
 - Unit Converter
 - Unit Buddy
-- Price Pal
-- PPU4U&ME
+- What's That Cost?

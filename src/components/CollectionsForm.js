@@ -1,19 +1,16 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import { UNITS_OF_MEASUREMENT, PRESETS } from "../data";
+import { UNITS_OF_MEASUREMENT } from "../data";
 import { CollectionsContext } from "./CollectionsProvider";
 import { CurrentCollectionContext } from "./CurrentCollectionProvider";
 import ProductGrid from './ProductGrid';
 import Modal from "./Modal";
 import styles from "../App.module.css";
-import slugify from "../utils/slugify";
-import sortCollections from "../utils/sortCollections";
-import useToggle from "../hooks/useToggle";
 
 function CollectionsForm({ children }) {
 
-  const { collections, setCollections } = React.useContext(CollectionsContext);
-  const { currentCollectionId, setCurrentCollectionId } = React.useContext(CurrentCollectionContext);
+  const { collections } = React.useContext(CollectionsContext);
+  const { currentCollectionId, isModalOpen, toggleIsModalOpen, handleCollectionChange, addCollection, resetCollections, clearCollections } = React.useContext(CurrentCollectionContext);
 
   // build dropdown options from available collections
   const collectionOptions = collections && Object.keys(collections).map((key) => {
@@ -23,39 +20,6 @@ function CollectionsForm({ children }) {
       </option>
     );
   });
-
-  const [isModalOpen, toggleIsModalOpen] = useToggle(false);
-
-  // handle collection selector
-  function handleCollectionChange(event) {
-    setCurrentCollectionId(event.target.value);
-  }
-
-  function addCollection(event) {
-    event.preventDefault();
-    const newCollectionTitle = event.target.collectionTitle.value;
-    const newCollectionId = slugify(newCollectionTitle);
-    const nextCollection = {
-      label: event.target.collectionTitle.value,
-      baseUnit: event.target.collectionUnitsOfMeasurement.value,
-      icon: event.target.collectionIcon.value,
-      items: []
-    }
-    const nextCollections = { ...collections, [newCollectionId]: nextCollection }
-    setCollections(nextCollections)
-    setCurrentCollectionId(newCollectionId)
-    toggleIsModalOpen()
-  }
-
-  function resetCollections() {
-    setCurrentCollectionId('')
-    setCollections(sortCollections(PRESETS))
-  }
-
-  function clearCollections() {
-    setCollections({})
-    setCurrentCollectionId('')
-  }
 
   return (
     <>

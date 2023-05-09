@@ -25,13 +25,13 @@ function AddProductForm({ toggleIsModalOpen }) {
     const nextProduct = {
       id: newProductId,
       title: event.target.productTitle.value,
-      units: event.target.productItemsPerProduct.value,
-      volume: event.target.productVolumePerItem.value,
+      units: parseInt(event.target.productItemsPerProduct.value),
+      volume: parseFloat(event.target.productVolumePerItem.value),
       unitsOfMeasurement: event.target.productUnitsOfMeasurement.value,
       container: event.target.productContainer.value,
       description: event.target.productDescription.value,
       icon: event.target.productIcon.value,
-      price: event.target.productPrice.value,
+      price: parseFloat(event.target.productPrice.value),
     }
     updateCollection(currentCollectionId, nextProduct);
     setSampleProduct({});

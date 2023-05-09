@@ -19,13 +19,13 @@ function ProductDetail({ product, toggleIsModalOpen, handlePriceChange }) {
     const nextProduct = {
       id: product.id,
       title: event.target.productTitle.value,
-      units: event.target.productItemsPerProduct.value !== '' ? event.target.productItemsPerProduct.value : 1,
-      volume: event.target.productVolumePerItem.value !== '' ? event.target.productVolumePerItem.value : 1,
+      units: event.target.productItemsPerProduct.value !== '' ? parseInt(event.target.productItemsPerProduct.value) : 1,
+      volume: event.target.productVolumePerItem.value !== '' ? parseFloat(event.target.productVolumePerItem.value) : 1,
       unitsOfMeasurement: event.target.productUnitsOfMeasurement.value,
       container: event.target.productContainer.value,
       description: event.target.productDescription.value,
       icon: emojiUnified,
-      price: event.target.productPrice.value,
+      price: parseFloat(event.target.productPrice.value),
     }
     updateCollection(currentCollectionId, nextProduct);
     handlePriceChange(event.target.productPrice.value)

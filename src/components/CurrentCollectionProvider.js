@@ -1,14 +1,13 @@
-import React from "react";
-import { CollectionsContext } from "./CollectionsProvider";
-import slugify from "../utils/slugify";
-import sortCollections from "../utils/sortCollections";
-import { PRESETS } from "../data";
-import useToggle from "../hooks/useToggle";
+import React from 'react';
+import { CollectionsContext } from './CollectionsProvider';
+import slugify from '../utils/slugify';
+import sortCollections from '../utils/sortCollections';
+import { PRESETS } from '../data';
+import useToggle from '../hooks/useToggle';
 
 export const CurrentCollectionContext = React.createContext();
 
 function CurrentCollectionProvider({ children }) {
-
   // the active collection ID ('beer','wine','soup')
   const [currentCollectionId, setCurrentCollectionId] = React.useState('');
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
@@ -27,29 +26,42 @@ function CurrentCollectionProvider({ children }) {
       label: event.target.collectionTitle.value,
       baseUnit: event.target.collectionUnitsOfMeasurement.value,
       icon: event.target.collectionIcon.value,
-      items: []
-    }
-    const nextCollections = { ...collections, [newCollectionId]: nextCollection }
-    setCollections(nextCollections)
-    setCurrentCollectionId(newCollectionId)
-    toggleIsModalOpen()
+      items: [],
+    };
+    const nextCollections = {
+      ...collections,
+      [newCollectionId]: nextCollection,
+    };
+    setCollections(nextCollections);
+    setCurrentCollectionId(newCollectionId);
+    toggleIsModalOpen();
   }
 
   function resetCollections() {
-    setCurrentCollectionId('')
-    setCollections(sortCollections(PRESETS))
+    setCurrentCollectionId('');
+    setCollections(sortCollections(PRESETS));
   }
 
   function clearCollections() {
-    setCollections({})
-    setCurrentCollectionId('')
+    setCollections({});
+    setCurrentCollectionId('');
   }
 
   return (
-    <CurrentCollectionContext.Provider value={{ currentCollectionId, isModalOpen, toggleIsModalOpen, handleCollectionChange, addCollection, resetCollections, clearCollections }}>
+    <CurrentCollectionContext.Provider
+      value={{
+        currentCollectionId,
+        isModalOpen,
+        toggleIsModalOpen,
+        handleCollectionChange,
+        addCollection,
+        resetCollections,
+        clearCollections,
+      }}
+    >
       {children}
     </CurrentCollectionContext.Provider>
-  )
+  );
 }
 
 export default CurrentCollectionProvider;

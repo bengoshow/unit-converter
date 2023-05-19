@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import styles from "./Product.module.css";
+import styles from './Product.module.css';
 import { CollectionsContext } from './CollectionsProvider';
 import { CurrentCollectionContext } from './CurrentCollectionProvider';
 import useToggle from '../hooks/useToggle';
@@ -9,10 +9,10 @@ import ProductDetail from './ProductDetail';
 import { Emoji, EmojiStyle } from 'emoji-picker-react';
 
 function Product({ product, baseUnit, totalVolume }) {
-
   // console.log(`Render ${product.id}`)
 
-  const { updateItemPrice } = React.useContext(CollectionsContext)
+  const { updateItemPrice, updateCollection } =
+    React.useContext(CollectionsContext);
   const { currentCollectionId } = React.useContext(CurrentCollectionContext);
   const [isModalOpen, toggleIsModalOpen] = useToggle(false);
 
@@ -26,7 +26,7 @@ function Product({ product, baseUnit, totalVolume }) {
 
   // track item price in state
   const [price, setPrice] = React.useState(product.price ?? '');
-  const pricePerUnit = calculatePricePerUnit(price)
+  const pricePerUnit = calculatePricePerUnit(price);
 
   // let React generate unique item id
   const id = React.useId();
@@ -39,7 +39,10 @@ function Product({ product, baseUnit, totalVolume }) {
       currency: 'USD',
     }).format(pricePerUnit);
 
-    const currencyFormat = pricePerUnit >= 1 ? formattedPrice : `${(pricePerUnit * 100).toFixed(1)}¢`
+    const currencyFormat =
+      pricePerUnit >= 1
+        ? formattedPrice
+        : `${(pricePerUnit * 100).toFixed(1)}¢`;
     return `${currencyFormat}/${baseUnit}`;
   }
 
@@ -48,43 +51,58 @@ function Product({ product, baseUnit, totalVolume }) {
     setPrice(price);
   }
 
+  function handleDeleteItem() {
+    updateCollection(currentCollectionId, product, 'delete');
+  }
+
   return (
     <div className={styles.product}>
       <Emoji unified={icon} size="40" emojiStyle={EmojiStyle.NATIVE} />
       <h2 className={styles.title}>{product.title}</h2>
-      <p>{product.description}
-        <span className={styles.smallText}>{productUnits} {product.volume !== 1 && product.volume}{unitsOfMeasurement} {product.container}{product.units > 1 && 's'}</span><br />
+      <p>
+        {product.description}
+        <span className={styles.smallText}>
+          {productUnits} {product.volume !== 1 && product.volume}
+          {unitsOfMeasurement} {product.container}
+          {product.units > 1 && 's'}
+        </span>
+        <br />
         Total Volume in {baseUnit}: {totalVolume}
       </p>
-      <label htmlFor={id} className={styles.priceLabel}>Price: $
+      <label htmlFor={id} className={styles.priceLabel}>
+        Price: $
         <input
           id={id}
           type="text"
           value={price}
           onChange={(event) => {
-            handlePriceChange(event.target.value)
+            handlePriceChange(event.target.value);
           }}
           onBlur={(event) => {
-            updateItemPrice(currentCollectionId, product.id, event.target.value)
-          }} />
+            updateItemPrice(
+              currentCollectionId,
+              product.id,
+              event.target.value
+            );
+          }}
+        />
       </label>
       <div className="price-per-unit">{pricePerUnit}</div>
       <div>
         <button onClick={toggleIsModalOpen}>Edit Product</button>
-        {/* <button onClick={deleteProduct}>Delete Product</button> */}
+        <button onClick={handleDeleteItem}>Delete Product</button>
       </div>
       {isModalOpen &&
         createPortal(
-          (
-            <Modal
-              handleDismiss={() => toggleIsModalOpen(false)}
-            >
-              <ProductDetail {...{ toggleIsModalOpen, product, handlePriceChange }} />
-            </Modal>), document.body
+          <Modal handleDismiss={() => toggleIsModalOpen(false)}>
+            <ProductDetail
+              {...{ toggleIsModalOpen, product, handlePriceChange }}
+            />
+          </Modal>,
+          document.body
         )}
-
-    </div >
-  )
+    </div>
+  );
 }
 
 export default Product;
